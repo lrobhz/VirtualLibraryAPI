@@ -10,14 +10,28 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.Swagger;
+using VirtualLibraryApi.Models;
 
 namespace VirtualLibraryApi
 {
     public class Startup
     {
+        public static List<Book> Books;
+        public static List<BookReview> BookReviews = new List<BookReview>();
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            Books = new List<Book>() 
+            { 
+                new Book() { BookId = 1, BookName = "Book1", Author = "Author1", Description = "Lorem ipsum dolor sit amet, consectetur " },
+                new Book() { BookId = 2, BookName = "Book2", Author = "Author2", Description = "Lorem ipsum dolor sit amet, consectetur " },
+                new Book() { BookId = 3, BookName = "Book3", Author = "Author3", Description = "Lorem ipsum dolor sit amet, consectetur " },
+                new Book() { BookId = 4, BookName = "Book4", Author = "Author4", Description = "Lorem ipsum dolor sit amet, consectetur " },
+                new Book() { BookId = 5, BookName = "Book5", Author = "Author5", Description = "Lorem ipsum dolor sit amet, consectetur " }
+            };
         }
 
         public IConfiguration Configuration { get; }
@@ -26,6 +40,11 @@ namespace VirtualLibraryApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Virtual Library API", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +62,12 @@ namespace VirtualLibraryApi
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseSwagger();
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Virtual Library API V1");
+            });
         }
     }
 }
