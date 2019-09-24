@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using src.Models;
 using Swashbuckle.AspNetCore.Swagger;
 using VirtualLibraryApi.Models;
 
@@ -19,6 +20,7 @@ namespace VirtualLibraryApi
     {
         public static List<Book> Books;
         public static List<BookReview> BookReviews = new List<BookReview>();
+        public static Dictionary<string, Basket> Baskets = new Dictionary<string, Basket>();
 
         public Startup(IConfiguration configuration)
         {
