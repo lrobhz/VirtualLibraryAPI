@@ -7,19 +7,19 @@ As orientações e exemplos práticos no projetos encontram-se abaixo:
 1. **Organize APIs ao longo de recursos.** As URIs expostos por um serviço REST devem ser baseados em
 substantivos (os dados aos quais a API da Web fornece acesso) e não em verbos (o que uma aplicação pode
 fazer com os dados). <br />
-**Aplicação no projeto:** api/v1/**books**/
+**Aplicação no projeto:** api/v1/**books**/ <br />
                           api/v1/**books**/1/review/
 
 2. Padronize as suas APIs. Adote uma convenção de nomenclatura consistente nas URIs. Em geral, é útil usar
 substantivos no plural para URIs que fazem referência a coleções. <br />
-**Aplicação no projeto:** api/v1/**books**/
+**Aplicação no projeto:** api/v1/**books**/ <br />
                           api/v1/**books**/1/review/
 
 3. Evite APIs anêmicas. Evite projetar uma interface REST que espelhe ou dependa da estrutura interna dos
 dados que ela expõe. O REST é mais do que implementar operações CRUD simples (Create, Retrieve, Update,
 Delete) sobre tabelas separadas em um banco de dados relacional. O objetivo do REST é mapear as entidades
 de negócios e as operações que um aplicativo pode executar nessas entidades para a implementação física dessas entidades, mas um cliente não deve ser exposto a esses detalhes físicos. <br />
-**Aplicação no projeto:** api/v1/basket/{userName}/RemoveBook/{bookId}
+**Aplicação no projeto:** api/v1/basket/{userName}/RemoveBook/{bookId} <br />
                           api/v1/orders/{orderId}/status
 
 4. Crie APIs simples. Evite criar URIs de recursos mais complexos do que coleção/item/coleção. <br />
@@ -35,15 +35,15 @@ da sua aplicação.<br />
 6. Se você precisar receber datas e horas nas API, use o padrão ISO 8601. APIs que trafegam datas ou horas
 devem usar o padrão ISO 8601 para garantir interoperabilidade - https://www.w3.org/TR/NOTE-datetime. <br />
 **Aplicação no projeto:**  
-            ```C#
-            [JsonConverter(typeof(CustomDateTimeConverter))]
-            public DateTime OrderDate { get; set; }
+            ```C# <br />
+            [JsonConverter(typeof(CustomDateTimeConverter))] <br />
+            public DateTime OrderDate { get; set; } <br />
             ```
 7. Documente sua API. Uma API é tão boa quanto sua documentação. Os documentos devem ser fáceis de
 encontrar e publicamente acessíveis. A maioria dos desenvolvedores verificará os documentos antes de tentar
 qualquer esforço de integração. Quando os documentos estão ocultos, ausentes ou obscuros, qualquer esforço
 de integração será muito aumentado. <br />
-**Aplicação no projeto:**
+**Aplicação no projeto:** <br />
             .../swagger/index.html
 
 8. Use protocolo HTTPS/SSL. Sempre! Suas APIs da web podem ser acessadas de qualquer lugar onde haja
@@ -61,14 +61,14 @@ foi disponibilizada. <br />
 10. Estabeleça paginação para coleções com grandes volumes de dados. Não faz sentido retornar 20.000
 clientes em um único pacote JSON. E para evitar grandes pacotes de dados devemos estabelecer controles de
 paginações. <br />
-**Aplicação no projeto:**
+**Aplicação no projeto:** <br />
         ```
-        public class Pagination
-        {
-            public int PageNumber { get; set; }
-            public int PageSize { get; set; }
-            public int? TotalRecords { get; set; }
-            public int? TotalPages { get; set; }
+        public class Pagination <br />
+        { <br />
+            public int PageNumber { get; set; } <br />
+            public int PageSize { get; set; } <br />
+            public int? TotalRecords { get; set; } <br />
+            public int? TotalPages { get; set; } <br />
         } ```
 
 11. Use corretamente os códigos de retorno HTTP. Por exemplo, se você está implementado um GET e o
