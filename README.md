@@ -35,9 +35,9 @@ da sua aplicação.<br />
 6. Se você precisar receber datas e horas nas API, use o padrão ISO 8601. APIs que trafegam datas ou horas
 devem usar o padrão ISO 8601 para garantir interoperabilidade - https://www.w3.org/TR/NOTE-datetime. <br />
 **Aplicação no projeto:**  
-            ```C# <br />
-            [JsonConverter(typeof(CustomDateTimeConverter))] <br />
-            public DateTime OrderDate { get; set; } <br />
+            ```C# 
+            [JsonConverter(typeof(CustomDateTimeConverter))] 
+            public DateTime OrderDate { get; set; } 
             ```
 7. Documente sua API. Uma API é tão boa quanto sua documentação. Os documentos devem ser fáceis de
 encontrar e publicamente acessíveis. A maioria dos desenvolvedores verificará os documentos antes de tentar
@@ -64,11 +64,11 @@ paginações. <br />
 **Aplicação no projeto:** <br />
         ```
         public class Pagination <br />
-        { <br />
-            public int PageNumber { get; set; } <br />
-            public int PageSize { get; set; } <br />
-            public int? TotalRecords { get; set; } <br />
-            public int? TotalPages { get; set; } <br />
+        { 
+            public int PageNumber { get; set; } 
+            public int PageSize { get; set; } 
+            public int? TotalRecords { get; set; } 
+            public int? TotalPages { get; set; } 
         } ```
 
 11. Use corretamente os códigos de retorno HTTP. Por exemplo, se você está implementado um GET e o
