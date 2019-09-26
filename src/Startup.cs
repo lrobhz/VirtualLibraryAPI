@@ -21,6 +21,7 @@ namespace VirtualLibraryApi
         public static List<Book> Books;
         public static List<BookReview> BookReviews = new List<BookReview>();
         public static Dictionary<string, Basket> Baskets = new Dictionary<string, Basket>();
+        public static List<Order> Orders = new List<Order>();
 
         public Startup(IConfiguration configuration)
         {

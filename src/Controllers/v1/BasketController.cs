@@ -21,12 +21,23 @@ namespace src.Controllers.v1
             return NoContent();
         }
 
+        [HttpPost("Create/{userName}")]
+        public ActionResult Create(string userName)
+        {
+            if(Startup.Baskets.ContainsKey(userName))
+                return Conflict(new { message = $"A basket with this userName already exists."});
+
+            Startup.Baskets.Add(userName, new Basket() { UserName = userName, Books = new List<Book>() });
+
+            return StatusCode(201); 
+        }
+
         [HttpPost("{userName}/AddBook/{bookId}")]
         public ActionResult AddBook(string userName, long bookId)
         {
             if(!Startup.Baskets.ContainsKey(userName))
             {
-                Startup.Baskets.Add(userName, new Basket() { UserName = userName, Books = new List<Book>() });
+                return Conflict(new { message = $"The user {userName} has no basket."});
             }
 
             var book = Startup.Books.Where(b => b.BookId == bookId).SingleOrDefault();
@@ -35,6 +46,8 @@ namespace src.Controllers.v1
                 return Conflict(new { message = $"No book with id '{bookId}' was found."});
 
             Startup.Baskets[userName].Books.Add(book);
+
+            Startup.Baskets[userName].Total += book.Price;
 
             return StatusCode(201); 
         }
@@ -54,6 +67,8 @@ namespace src.Controllers.v1
 
             Startup.Baskets[userName].Books.Remove(book);
 
+            Startup.Baskets[userName].Total -= book.Price;
+
             return Ok(); 
         }
 
@@ -66,6 +81,7 @@ namespace src.Controllers.v1
             }
 
             Startup.Baskets[userName].Books.Clear();
+            Startup.Baskets[userName].Total = 0;
 
             return Ok();
         }
